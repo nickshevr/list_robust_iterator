@@ -38,7 +38,7 @@ func TestRemoveFromRobust(t *testing.T) {
 
 	assertIntEqual(t, first, firstElem)
 
-	flag := robust.removeBefore(firstElem)
+	flag := aggregate.remove(firstElem)
 
 	assertBoolEqual(t, flag, true)
 
@@ -87,7 +87,7 @@ func TestRemoveTailFromRobust(t *testing.T) {
 
 	assertIntEqual(t, second, secondElem)
 
-	flag := robust.removeAfter(thirdElem)
+	flag := aggregate.remove(thirdElem)
 
 	assertBoolEqual(t, flag, true)
 
@@ -132,8 +132,8 @@ func TestAddBeforeFromRobust(t *testing.T) {
 
 	assertIntEqual(t, second, secondElem)
 
-	robust.insertBefore(firstElem, 6)
-	robust.insertBefore(firstElem, 7)
+	aggregate.insert(firstElem, 6)
+	aggregate.insert(firstElem, 7)
 
 	assertIntEqual(t, robust.next(), thirdElem)
 }

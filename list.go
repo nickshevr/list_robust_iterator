@@ -1,5 +1,7 @@
 package main
 
+import "errors"
+
 type List struct {
 	rootNode *Node
 	endNode *Node
@@ -84,6 +86,22 @@ func (l *List) getNode(index int) *Node {
 	return tmp;
 }
 
+func (l *List) findNode(node *Node) int {
+	tmp := l.rootNode;
+	i := 0
+
+	for tmp != nil {
+		if (tmp == node) {
+			break;
+		}
+
+		tmp = tmp.Next
+		i++
+	}
+
+	return i;
+}
+
 func (l *List) count() int {
 	tmp := l.rootNode;
 	i := 0
@@ -125,4 +143,37 @@ func (l *List) remove(value int) bool {
 	}
 
 	return false;
+}
+
+func (l *List) rm(value int) (int, error) {
+	node := l.find(value);
+	i:= 0
+
+	if (node != nil) {
+		if (node == l.rootNode) {
+			l.rootNode = node.Next
+		} else {
+			tmp := l.rootNode
+			for tmp != nil {
+				i++
+				if (tmp.Next == node) {
+					break
+				}
+
+				tmp = tmp.Next
+			}
+
+			tmp.Next = node.Next
+			if (tmp == l.endNode) {
+				tmp = l.endNode
+			}
+
+			// kind of memory clear
+			tmp = &Node{}
+		}
+
+		return i, nil
+	}
+
+	return 0, errors.New("Cant delete");
 }
