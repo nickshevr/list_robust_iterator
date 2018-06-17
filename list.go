@@ -68,6 +68,22 @@ func (l *List) get(index int) int {
 	return tmp.Data;
 }
 
+func (l *List) getNode(index int) *Node {
+	tmp := l.rootNode;
+	i := 0
+
+	for tmp != nil {
+		if (i == index) {
+			break;
+		}
+
+		tmp = tmp.Next
+		i++
+	}
+
+	return tmp;
+}
+
 func (l *List) count() int {
 	tmp := l.rootNode;
 	i := 0
@@ -100,6 +116,9 @@ func (l *List) remove(value int) bool {
 			if (tmp == l.endNode) {
 				tmp = l.endNode
 			}
+
+			// kind of memory clear
+			tmp = &Node{}
 
 			return true
 		}

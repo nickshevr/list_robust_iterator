@@ -1,7 +1,7 @@
 package main
 
 type Aggregate struct {
-	Data *List
+	List    *List
 	version int
 }
 
@@ -16,25 +16,31 @@ func (a *Aggregate) IncVersion() int {
 }
 
 func (a *Aggregate) GetData() *List {
-	return a.Data;
+	return a.List;
 }
 
 func (a *Aggregate) get(index int) int {
-	return a.Data.get(index);
+	return a.List.get(index);
 }
 
 func (a *Aggregate) count() int {
-	return a.Data.count();
+	return a.List.count();
 }
 
 func (a *Aggregate) add(value int) {
 	a.IncVersion()
 
-	a.Data.add(value);
+	a.List.add(value);
+}
+
+func (a *Aggregate) insert(key int, value int) {
+	a.IncVersion()
+
+	a.List.insert(key, value);
 }
 
 func (a *Aggregate) remove(value int) bool {
 	a.IncVersion()
 
-	return a.Data.remove(value);
+	return a.List.remove(value);
 }
