@@ -119,9 +119,9 @@ func (l *List) remove(value int) bool {
 
 			// kind of memory clear
 			tmp = &Node{}
-
-			return true
 		}
+
+		return true
 	}
 
 	return false;

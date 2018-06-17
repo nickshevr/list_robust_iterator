@@ -18,6 +18,8 @@ func (r *RobustIterator) next() int {
 }
 
 func (r *RobustIterator) isDone() bool {
+	r.syncData()
+
 	return r.CurrentIterator.isDone()
 }
 
@@ -35,6 +37,28 @@ func (r *RobustIterator) syncData() {
 
 	r.version = aggregateV
 }
+
+// experiment
+func (r *RobustIterator) insertBefore(key int, value int) {
+	r.Current++
+
+	r.Data.insert(key, value)
+}
+
+func (r *RobustIterator) insertAfter(key int, value int) {
+	r.Data.insert(key, value)
+}
+
+func (r *RobustIterator) removeBefore(value int) bool {
+	r.Current--
+
+	return r.Data.remove(value)
+}
+
+func (r *RobustIterator) removeAfter(value int) bool {
+	return r.Data.remove(value)
+}
+// exp end
 
 func (r *RobustIterator) Stringify() string {
 	s := ""
